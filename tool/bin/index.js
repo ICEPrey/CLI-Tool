@@ -1,13 +1,16 @@
 #!/usr/bin/env node
 import arg from "arg"
 import { chalkStderr } from "chalk"
+import { getConfig } from "../src/commands/config-mgr.js"
+import { start } from "../src/commands/start.js"
 try {
   const args = arg({
     "--start": Boolean,
     "--build": Boolean,
   })
   if (args["--start"]) {
-    console.log(chalkStderr.bgCyanBright("starting the app"))
+    const config = getConfig()
+    start(config)
   }
 } catch (e) {
   console.log(chalkStderr.redBright(e.message))
